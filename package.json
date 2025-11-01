@@ -1,0 +1,18 @@
+{
+  "name": "evolife",
+  "version": "1.0.0",
+  "description": "EvoLife App built with Capacitor",
+  "main": "index.html",
+  "scripts": {
+    "start": "ionic serve",
+    "build": "ionic build",
+    "android": "capacitor build android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  },
+  "devDependencies": {
+    "ionic": "^7.0.0"
+  }
+}
