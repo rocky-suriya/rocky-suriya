@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="manifest" href="manifest.json">
+<title>EvoLife — Offline AI Companion</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="preload" href="assets/fonts/Poppins-Regular.ttf" as="font" type="font/ttf" crossorigin>
+
+</head>
+<body>
+  <div id="scene"></div> <!-- particle canvas container -->
+
+  <div class="app">
+    <header class="app-header glass">
+      <div class="brand">
+        <img src="assets/icons/logo.png" alt="logo" class="logo">
+        <div>
+          <h1>EvoLife</h1>
+          <p class="tag">Offline AI Life Companion</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn" title="Toggle theme">🌓</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero glass">
+        <div class="hero-left">
+          <h2 id="heroHello">Welcome back 👋</h2>
+          <p id="heroQuote" class="muted">Loading quote...</p>
+
+          <div class="card-grid" id="featureGrid">
+            <!-- cards injected by JS -->
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="ai-card glass">
+            <h3>Meet Evo — your AI</h3>
+            <p class="muted">Tap the mic to talk or type below.</p>
+
+            <div id="chatBox" class="chat-box">
+              <!-- chat messages -->
+            </div>
+
+            <div class="chat-controls">
+              <input id="chatInput" placeholder="Say something to Evo..." />
+              <button id="sendBtn" class="glow">Send</button>
+            </div>
+
+            <div class="ai-actions">
+              <button id="micBtn" class="pulse">🎤</button>
+              <button id="clearChat" class="ghost">Clear</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modules: notes/planner/mood/tools/vault -->
+      <section class="modules">
+        <div id="notesModule" class="module glass hidden">
+          <h3>Notes</h3>
+          <textarea id="noteInput" placeholder="Write a note..."></textarea>
+          <div class="row">
+            <button onclick="saveNote()" class="glow">Save</button>
+            <button onclick="clearNotes()" class="danger">Clear All</button>
+          </div>
+          <ul id="noteList" class="list"></ul>
+        </div>
+
+        <div id="plannerModule" class="module glass hidden">
+          <h3>Planner</h3>
+          <input id="taskInput" placeholder="Add task..." />
+          <div class="row"><button onclick="addTask()" class="glow">Add</button></div>
+          <ul id="taskList" class="list"></ul>
+        </div>
+
+        <div id="moodModule" class="module glass hidden">
+          <h3>Mood Tracker</h3>
+          <div id="moodButtons" class="mood-buttons"></div>
+          <p id="lastMood" class="muted"></p>
+        </div>
+
+        <div id="toolsModule" class="module glass hidden">
+          <h3>Tools</h3>
+          <div class="tools-row">
+            <button onclick="openCalculator()" class="glow">Calculator</button>
+            <button onclick="toggleConverter()" class="glow">Converter</button>
+            <button onclick="notifyFlashlight()" class="glow">Flashlight</button>
+          </div>
+          <div id="calc" class="tool-panel hidden">
+            <input id="calcDisplay" readonly placeholder="0" />
+            <div class="calc-grid">
+              <!-- calc buttons -->
+            </div>
+          </div>
+          <div id="converter" class="tool-panel hidden">
+            <input id="convVal" type="number" placeholder="Value">
+            <select id="convFrom"><option value="m">m</option><option value="km">km</option><option value="cm">cm</option></select>
+            <select id="convTo"><option value="cm">cm</option><option value="m">m</option><option value="km">km</option></select>
+            <button onclick="convertUnit()" class="glow">Convert</button>
+            <p id="convOut" class="muted"></p>
+          </div>
+        </div>
+
+        <div id="vaultModule" class="module glass hidden">
+          <h3>Personal Vault</h3>
+          <input id="vaultPin" type="password" placeholder="Enter PIN (default 1234)">
+          <div class="row"><button onclick="unlockVault()" class="glow">Unlock</button></div>
+          <div id="vaultArea" class="hidden">
+            <textarea id="vaultTextarea" placeholder="Secure note..."></textarea>
+            <div class="row">
+              <button onclick="saveVault()" class="glow">Save</button>
+              <button onclick="clearVault()" class="danger">Clear Vault</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-left">Made with <span class="heart">💚</span> by Suriya</div>
+      <div class="footer-right">
+        <button onclick="showModule('notesModule')" class="pill">Notes</button>
+        <button onclick="showModule('plannerModule')" class="pill">Planner</button>
+        <button onclick="showModule('moodModule')" class="pill">Mood</button>
+        <button onclick="showModule('toolsModule')" class="pill">Tools</button>
+        <button onclick="showModule('vaultModule')" class="pill">Vault</button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- audio -->
+  <audio id="click" src="assets/sounds/click.mp3"></audio>
+  <audio id="success" src="assets/sounds/success.mp3"></audio>
+
+  <script src="ai.js"></script>
+  <script src="script.js"></script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log('Service Worker Registered'));
+  }
+</script>
+</body>
+</html>

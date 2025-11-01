@@ -1,0 +1,22 @@
+{
+  "name": "EvoLife",
+  "short_name": "EvoLife",
+  "description": "Your smart AI planner that manages your mood, notes, security, and daily plans.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f2027",
+  "theme_color": "#00ffff",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icons/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
